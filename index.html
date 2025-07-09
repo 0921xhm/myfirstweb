@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>许宝宝向你发送了一张复合申请函</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffebee; /* 淡粉色背景 */
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            /* 修改字体为兰米粗楷简体，并添加后备字体 */
+            font-family: "兰米粗楷简体", "STKaiti", "KaiTi", "SimHei", sans-serif;
+        }
+        
+        /* 新增：标题文字样式 */
+        .title-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .main-title {
+            font-size: 36px; /* 主标题字体更大 */
+            color: #333; /* 将颜色从粉色改为黑色 */
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .sub-title {
+            font-size: 28px; /* 副标题字体稍小 */
+            color: #333;
+        }
+        
+        /* 表情样式 - 等比例放大 */
+        .face {
+            position: relative;
+            width: 280px; /* 从220px放大到280px */
+            height: 280px; /* 从220px放大到280px */
+            background: #f9ed69; /* 表情包颜色 */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            margin-bottom: 40px;
+            transition: background-color 0.3s ease;
+            z-index: 1;
+        }
+        
+        .face::before {
+            content: " ";
+            position: absolute;
+            width: 130px; /* 从100px放大到130px */
+            height: 60px; /* 从47px放大到60px */
+            top: 150px; /* 从120px调整到150px */
+            background: #ca6702; /* 深棕色嘴巴 */
+            border-bottom-left-radius: 60px; /* 从47px放大到60px */
+            border-bottom-right-radius: 60px; /* 从47px放大到60px */
+            transition: 0.5s;
+        }
+
+        .face:hover::before {
+            top: 180px; /* 从140px调整到180px */
+            width: 130px; /* 从100px放大到130px */
+            height: 18px; /* 从13px放大到18px */
+            background: #ca6702;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .eyes {
+            top: 35px; /* 从27px调整到35px */
+            position: relative;
+            display: flex;
+        }
+        
+        .eyes .eye {
+            width: 75px; /* 从58px放大到75px */
+            height: 75px; /* 从58px放大到75px */
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            display: block;
+            margin: 0 15px; /* 从10px调整到15px */
+        }
+
+        .eyes .eye::before {
+            position: absolute;
+            content: " ";
+            top: 50%;
+            left: 22px; /* 从17px调整到22px */
+            width: 40px; /* 从30px放大到40px */
+            height: 40px; /* 从30px放大到40px */
+            background: #333;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* 亲亲表情样式 */
+        .kiss-face::before {
+            width: 50px !important; /* 从40px放大到50px */
+            height: 50px !important; /* 从40px放大到50px */
+            border-radius: 50% !important;
+            background: #ca6702 !important;
+            transform: rotate(0) !important;
+            left: 50% !important;
+            margin-left: -25px !important; /* 从-20px调整到-25px */
+        }
+        
+        .kiss-face::after {
+            content: " ";
+            position: absolute;
+            width: 25px; /* 从20px放大到25px */
+            height: 25px; /* 从20px放大到25px */
+            border-radius: 50%;
+            border-top: 4px solid #ca6702; /* 从3px调整到4px */
+            border-right: 4px solid #ca6702; /* 从3px调整到4px */
+            transform: rotate(-45deg);
+            top: 160px; /* 从130px调整到160px */
+            left: 50%;
+            margin-left: 30px; /* 从25px调整到30px */
+        }
+        
+        /* 按钮样式 - 等比例放大 */
+        .button-container {
+            display: flex;
+            gap: 40px; /* 从30px调整到40px */
+            position: relative;
+            z-index: 1;
+            align-items: center;
+        }
+        
+        .btn {
+            font-weight: bold;
+            border: none;
+            border-radius: 40px; /* 从30px放大到40px */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            /* 修改字体为兰米粗楷简体，并添加后备字体 */
+            font-family: "兰米粗楷简体", "STKaiti", "KaiTi", "SimHei", sans-serif;
+        }
+        
+        .accept-btn {
+            padding: 20px 55px; /* 从15px 40px放大到20px 55px */
+            font-size: 26px; /* 从20px放大到26px */
+            background-color: #a5d6a7;
+            color: #2e7d32;
+            box-shadow: 0 4px 15px rgba(165, 214, 167, 0.4);
+        }
+        
+        .accept-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(165, 214, 167, 0.6);
+            background-color: #81c784;
+        }
+        
+        .accept-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(165, 214, 167, 0.6);
+        }
+        
+        /* 拒绝按钮样式 */
+        .reject-btn {
+            padding: 14px 40px; /* 从10px 28px放大到14px 40px */
+            font-size: 19px; /* 从14px放大到19px */
+            background-color: #ef9a9a;
+            color: #b71c1c;
+            transition: all 0.2s ease-out;
+        }
+        
+        .reject-btn:hover {
+            animation: bounce 0.5s infinite alternate;
+            background-color: #e57373;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        
+        /* 悲伤表情样式 */
+        .sad-face {
+            background-color: #f08a5d !important; /* 悲伤表情使用橙色 */
+        }
+        
+        .sad-face::before {
+            height: 25px !important; /* 从20px放大到25px */
+            top: 170px !important; /* 从133px调整到170px */
+            border-radius: 0 !important;
+            transform: rotate(180deg) !important;
+            background: #b83b5e !important; /* 悲伤表情嘴巴使用深紫色 */
+        }
+        
+        /* 按钮躲避动画 */
+        .btn-dodge {
+            animation: dodge 0.3s linear;
+        }
+        
+        @keyframes dodge {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-10px, -5px); }
+            50% { transform: translate(10px, 5px); }
+            75% { transform: translate(-10px, 5px); }
+        }
+        
+        /* 提示消息样式 */
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px 50px; /* 从25px 40px放大到30px 50px */
+            border-radius: 20px; /* 从15px放大到20px */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            font-size: 32px; /* 从28px放大到32px */
+            font-weight: bold;
+            color: #333;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            /* 修改字体为兰米粗楷简体，并添加后备字体 */
+            font-family: "兰米粗楷简体", "STKaiti", "KaiTi", "SimHei", sans-serif;
+        }
+        
+        .message.show {
+            opacity: 1;
+        }
+        
+        /* 接受后显示的页面 */
+        .accept-page {
+            position: fixed;
+            inset: 0;
+            background: #ffebee; /* 粉色背景 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .accept-page.show {
+            transform: translateY(0);
+        }
+        
+        .accept-title {
+            font-size: 50px; /* 从42px放大到50px */
+            color: #e94e77;
+            margin-bottom: 25px; /* 从20px调整到25px */
+            text-align: center;
+            padding: 0 20px;
+            /* 修改字体为兰米粗楷简体，并添加后备字体 */
+            font-family: "兰米粗楷简体", "STKaiti", "KaiTi", "SimHei", sans-serif;
+        }
+        
+        .accept-message {
+            font-size: 38px; /* 从32px放大到38px */
+            color: #333;
+            text-align: center;
+            padding: 0 20px;
+            /* 修改字体为兰米粗楷简体，并添加后备字体 */
+            font-family: "兰米粗楷简体", "STKaiti", "KaiTi", "SimHei", sans-serif;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 30px; /* 从25px放大到30px */
+            height: 30px; /* 从25px放大到30px */
+            background-color: #e94e77;
+            transform: rotate(45deg);
+            animation: heart-fall linear forwards;
+        }
+        
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 30px; /* 从25px放大到30px */
+            height: 30px; /* 从25px放大到30px */
+            background-color: #e94e77;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -15px; /* 从-12.5px调整到-15px */
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -15px; /* 从-12.5px调整到-15px */
+        }
+        
+        @keyframes heart-fall {
+            0% {
+                transform: rotate(45deg) translateY(0) scale(0.3);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(45deg) translateY(100vh) scale(0.3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 新增：标题文字 -->
+    <div class="title-container">
+        <div class="main-title">许宝宝向你发送了一张复合申请函</div>
+        <div class="sub-title">许宝宝希望你和她复合，是否接受</div>
+    </div>
+    
+    <div id="face" class="face">
+        <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+        </div>
+    </div>
+    
+    <div class="button-container">
+        <button class="btn accept-btn">接受</button>
+        <button id="rejectBtn" class="btn reject-btn">拒绝</button>
+    </div>
+    
+    <!-- 拒绝提示消息 -->
+    <div id="rejectMessage" class="message">不要嘛...</div>
+    
+    <!-- 接受后显示的页面 -->
+    <div id="acceptPage" class="accept-page">
+        <div class="accept-title">宝宝我爱你，就像老鼠爱大米</div>
+        <div class="accept-message">宝宝最好啦</div>
+    </div>
+
+    <script>
+        document.querySelector("body").addEventListener("mousemove", eyeball);
+        
+        function eyeball() {
+            var eye = document.querySelectorAll(".eye");
+            eye.forEach(function(eye) {
+                let x = eye.getBoundingClientRect().left + eye.clientWidth / 2;
+                let y = eye.getBoundingClientRect().top + eye.clientHeight / 2;
+                let radian = Math.atan2(event.pageX - x, event.pageY - y);
+                let rot = radian * (180 / Math.PI) * -1 + 0;
+                eye.style.transform = "rotate(" + rot + "deg)";
+            });
+        }
+        
+        // 获取元素引用
+        const face = document.getElementById('face');
+        const rejectBtn = document.getElementById('rejectBtn');
+        const rejectMessage = document.getElementById('rejectMessage');
+        const acceptBtn = document.querySelector('.accept-btn');
+        const acceptPage = document.getElementById('acceptPage');
+        
+        // 鼠标悬停在拒绝按钮上时显示悲伤表情
+        rejectBtn.addEventListener('mouseenter', () => {
+            face.classList.remove('kiss-face'); // 移除亲亲表情
+            face.classList.add('sad-face');
+        });
+        
+        // 鼠标离开拒绝按钮时恢复正常表情
+        rejectBtn.addEventListener('mouseleave', () => {
+            face.classList.remove('sad-face');
+        });
+        
+        // 拒绝按钮躲避效果
+        rejectBtn.addEventListener('click', () => {
+            // 添加躲避动画类
+            rejectBtn.classList.add('btn-dodge');
+            
+            // 移除动画类以便下次可以重新触发
+            setTimeout(() => {
+                rejectBtn.classList.remove('btn-dodge');
+            }, 300);
+            
+            // 获取窗口尺寸
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // 获取按钮尺寸
+            const btnRect = rejectBtn.getBoundingClientRect();
+            const btnWidth = btnRect.width;
+            const btnHeight = btnRect.height;
+            
+            // 计算按钮可以移动的最大范围（避免完全移出屏幕）
+            const maxX = windowWidth - btnWidth - 20;
+            const maxY = windowHeight - btnHeight - 20;
+            
+            // 生成随机位置
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            // 设置按钮的新位置
+            rejectBtn.style.position = 'fixed';
+            rejectBtn.style.left = `${randomX}px`;
+            rejectBtn.style.top = `${randomY}px`;
+            
+            // 保持按钮居中对齐
+            rejectBtn.style.transform = 'translate(-50%, -50%)';
+            
+            // 显示拒绝提示消息
+            showRejectMessage();
+        });
+        
+        // 显示拒绝提示消息
+        function showRejectMessage() {
+            rejectMessage.classList.add('show');
+            
+            // 2秒后隐藏消息
+            setTimeout(() => {
+                rejectMessage.classList.remove('show');
+            }, 2000);
+        }
+        
+        // 接受按钮点击事件
+        acceptBtn.addEventListener('click', () => {
+            // 显示接受页面
+            acceptPage.classList.add('show');
+            
+            // 显示亲亲表情
+            face.classList.remove('sad-face');
+            face.classList.add('kiss-face');
+            
+            // 创建心形动画
+            createHearts();
+        });
+        
+        // 创建心形动画
+        function createHearts() {
+            const body = document.body;
+            const numberOfHearts = 70; // 增加心形数量
+            
+            for (let i = 0; i < numberOfHearts; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    
+                    // 随机位置和动画持续时间
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.animationDuration = `${Math.random() * 4 + 2}s`; // 增加动画时长范围
+                    heart.style.opacity = Math.random() * 0.7 + 0.3; // 增加不透明度范围
+                    
+                    body.appendChild(heart);
+                    
+                    // 动画结束后移除元素
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 7000);
+                }, i * 80); // 调整间隔时间
+            }
+        }
+    </script>
+</body>
+</html>
